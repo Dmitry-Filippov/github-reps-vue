@@ -2,6 +2,11 @@
   <div class="app">
     <Form v-bind:search="this.search" v-bind:isLoading="this.isLoading"></Form>
     <Results :results="this.results" :totalCount="this.totalCount" />
+    <ErrorPopUp
+      :closePopUp="this.closePopUp"
+      :isPopUpOpen="this.isPopUpOpen"
+      :error="this.error"
+    />
   </div>
 </template>
 
@@ -9,12 +14,14 @@
 import { searchReps } from "./api/api";
 import Form from "./components/Form.vue";
 import Results from "./components/Results.vue";
+import ErrorPopUp from "./components/ErrorPopUp.vue";
 
 export default {
   name: "App",
   components: {
     Form,
     Results,
+    ErrorPopUp,
   },
 
   data: function () {
@@ -43,6 +50,10 @@ export default {
           this.isLoading = false;
           this.isPopUpOpen = true;
         });
+    },
+
+    closePopUp() {
+      this.isPopUpOpen = false;
     },
   },
 };
