@@ -1,17 +1,20 @@
 <template>
   <div class="app">
     <Form v-bind:search="this.search" v-bind:isLoading="this.isLoading"></Form>
+    <Results :results="this.results" :totalCount="this.totalCount" />
   </div>
 </template>
 
 <script>
 import { searchReps } from "./api/api";
 import Form from "./components/Form.vue";
+import Results from "./components/Results.vue";
 
 export default {
   name: "App",
   components: {
     Form,
+    Results,
   },
 
   data: function () {
