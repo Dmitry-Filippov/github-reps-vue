@@ -1,24 +1,7 @@
-# github-reps-vue
+# микропроект "репозитории github"
 
-## Project setup
-```
-npm install
-```
+## поиск по репозиториям GitHub по ключевому слову
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+проект выполнен на Vue.js
 
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+[Сыылка на Pages](https://dmitry-filippov.github.io/github-reps/)
