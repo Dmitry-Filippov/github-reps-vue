@@ -1,28 +1,54 @@
 <template>
   <div class="form">
     <h1 class="form__title">Поиск на GitHub</h1>
-    <form class="form__form">
-      <label for="input" class="form__label">
-        Введите ключевое слово
-      </label>
-      <input type="text" class="form__input" required name="input" v-model="inputValue">
-      <button class="form__submit">
+    <form class="form__form" v-on:submit="this.handleFormSubmit">
+      <label for="input" class="form__label"> Введите ключевое слово </label>
+      <input
+        type="text"
+        required
+        name="input"
+        v-model="inputValue"
+        v-bind:class="`form__input ${
+          isLoading ? 'form__input_mob-hidden' : ''
+        }`"
+      />
+      <button
+        v-bind:class="`form__submit ${
+          isLoading ? 'form__submit_mob-hidden' : ''
+        }`"
+      >
         Поиск
       </button>
-
+      <div
+        v-bind:class="`form__loader ${isLoading ? 'form__loader_active' : ''} `"
+      >
+        <Loader />
+      </div>
     </form>
   </div>
 </template>
 
 <script>
+import Loader from "./Loader.vue";
 export default {
   name: "FormComponent",
+  props: {
+    search: Function,
+    isLoading: Boolean,
+  },
   data: () => {
     return {
-      inputValue: ""
-    }
-  }
-}
+      inputValue: "",
+    };
+  },
+  methods: {
+    handleFormSubmit: function (event) {
+      event.preventDefault();
+      this.search(this.inputValue);
+    },
+  },
+  components: { Loader },
+};
 </script>
 
 <style>

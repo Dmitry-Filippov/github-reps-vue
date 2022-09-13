@@ -1,19 +1,48 @@
 <template>
   <div class="app">
-    <Form></Form>
-
+    <Form v-bind:search="this.search" v-bind:isLoading="this.isLoading"></Form>
   </div>
 </template>
 
 <script>
-import Form from './components/Form.vue';
+import { searchReps } from "./api/api";
+import Form from "./components/Form.vue";
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
     Form,
-  }
-}
+  },
+
+  data: function () {
+    return {
+      results: [],
+      totalCount: 0,
+      isLoading: false,
+      isPopUpOpen: false,
+      error: {},
+    };
+  },
+
+  methods: {
+    search(searchWord) {
+      this.isLoading = true;
+      searchReps(searchWord)
+        .then((res) => {
+          this.totalCount = res.total_count;
+          this.results = res.items.slice(0, 10);
+        })
+        .then(() => {
+          this.isLoading = false;
+        })
+        .catch((err) => {
+          this.error = err;
+          this.isLoading = false;
+          this.isPopUpOpen = true;
+        });
+    },
+  },
+};
 </script>
 
 <style>
